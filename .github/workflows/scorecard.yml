@@ -4,16 +4,21 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 6 * * 1' # Chaque lundi à 6h
+    - cron: '0 6 * * 1'
 
+# 🔐 Global = lecture SEULEMENT
 permissions:
-  contents: read       # Lecture du repo
-  security-events: write
-  id-token: write
+  contents: read
 
 jobs:
   analysis:
     runs-on: ubuntu-latest
+
+    # 🔐 Permissions élevées UNIQUEMENT ici
+    permissions:
+      security-events: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v4
         with:
